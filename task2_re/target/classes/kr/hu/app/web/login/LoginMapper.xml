@@ -6,13 +6,8 @@
 
 	<select id="loginUser" parameterType="kr.hu.app.web.login.UserBean" resultType="kr.hu.app.web.login.UserBean">
 		SELECT no, name, email, password
-      FROM tbl_user
-      WHERE 1 = 1
-      <if test="no > 0">
-     	and no = #{no}
-     </if>
+		FROM tbl_user
+		WHERE name = #{name} AND password = #{password}
 	</select>
-
-
-
-</mapper>
+ </mapper>
+	

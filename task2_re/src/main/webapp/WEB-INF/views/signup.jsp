@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/common.css">
-<link rel="stylesheet" href="resources/css/signup.css">
+<link rel="stylesheet" href="resources/css/user.css">
 <title>회원가입</title>
 </head>
 <body>

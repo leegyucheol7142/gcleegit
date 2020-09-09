@@ -5,6 +5,8 @@ html, body {
       		padding: 0;
       		}
 
+#container {text-align: center;}
+
 #title {
 		padding: 50px 0px;
 		background-color: #5dcc61;

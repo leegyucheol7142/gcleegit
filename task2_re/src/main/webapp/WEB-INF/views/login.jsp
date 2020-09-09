@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="resources/css/user.css">
 <title>로그인</title>
 </head>
 <body>
@@ -21,12 +22,12 @@
 				<li><a href="#">Chat</a></li>
 			</ul>
 		</div>
-		<div class="container">    
+		<div id="container">    
 			<h1 class="text-center">Login</h1>
 		<form action="/task2/success" method="post">
 			<div>
-		    	<label for="username">Id:</label>
-		      	<input type="text" id="username" name="username" required="required" placeholder="계정을 입력하세요.">
+		    	<label for="name">Id:</label>
+		      	<input type="text" id="name" name="name" required="required" placeholder="계정을 입력하세요.">
 		  	</div>
 		  	<div>
 		    	<label for="password">Password:</label>

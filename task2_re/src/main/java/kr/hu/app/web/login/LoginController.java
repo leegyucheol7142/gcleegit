@@ -20,10 +20,14 @@ public class LoginController {
 	public String login(HttpSession session) {return "login";}
 	
 	@RequestMapping(value = "success", method = RequestMethod.POST)
-	public String success(UserBean ub, HttpSession session) {
-		UserBean ub2 = loginService.loginUser(ub);
-		System.out.println("con : " + ub);
-		session.setAttribute("UserInfo", ub2);
+	public String success( UserBean ub, HttpSession session) {
+		session.setAttribute("loginuser", ub);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginuser");
 		return "redirect:/";
 	}
 }

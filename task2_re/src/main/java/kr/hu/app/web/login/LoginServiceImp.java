@@ -14,7 +14,8 @@ public class LoginServiceImp implements LoginService {
 	@Override
 	public UserBean loginUser(UserBean ub) {
 		System.out.println("LoginService : " + ub);
-		return loginMapper.loginUser(ub);
+		UserBean ub2 = loginMapper.loginUser(ub);
+		return ub2;
 		
 	}
 }	
