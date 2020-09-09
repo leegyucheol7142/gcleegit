@@ -1,0 +1,7 @@
+CREATE TABLE tbl_user
+( 
+ no NUMBER not null primary key,
+ name VARCHAR2(15) not null,
+ email VARCHAR2(50) not null,
+ password VARCHAR2(16) not null
+);
