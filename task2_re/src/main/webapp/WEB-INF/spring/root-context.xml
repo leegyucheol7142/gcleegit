@@ -30,15 +30,12 @@
 	</bean>
 	<!--마이바티스 스프링 자동 스캔, <context:component-scan/>대신 사용-->
 	<mybatis-spring:scan
-		base-package="kr.hu.app.web.signup" />
+		base-package="kr.hu.app.mapper" />
 		
 	<bean id="signupService"
-		class="kr.hu.app.web.signup.SignupServiceImp" />
+		class="kr.hu.app.service.SignupServiceImp" />
 		
-	<mybatis-spring:scan
-		base-package="kr.hu.app.web.login" />
-			
-	<bean id="LoginService"
-		class="kr.hu.app.web.login.LoginServiceImp" />	
+	<bean id="loginService"
+		class="kr.hu.app.service.LoginServiceImp" />	
 
 </beans>
