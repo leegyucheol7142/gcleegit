@@ -1,5 +1,5 @@
 //유저 테이블
-CREATE TABLE tbl_user
+CREATE TABLE gc_tbl_user
 ( 
  no NUMBER not null primary key,
  name VARCHAR2(15) not null,
@@ -8,7 +8,7 @@ CREATE TABLE tbl_user
 );
 
 //게시판 테이블
-CREATE TABLE tbl_board(
+CREATE TABLE gc_tbl_board(
     board_no NUMBER NOT NULL PRIMARY KEY,
     title VARCHAR2(30) NOT NULL,
     user_no VARCHAR(20) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE tbl_board(
 );
 
 //댓글 테이블
-CREATE TABLE tbl_comment(
+CREATE TABLE gc_tbl_comment(
     comment_no NUMBER NOT NULL PRIMARY KEY,
     title VARCHAR2(30) NOT NULL,
     bno VARCHAR(20) NOT NULL,

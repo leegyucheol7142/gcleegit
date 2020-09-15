@@ -5,7 +5,7 @@
 <mapper namespace="kr.hu.app.mapper.SignupMapper">
   
   <insert id="setUser" parameterType="kr.hu.app.bean.UserBean">
-  	INSERT INTO tbl_user 
+  	INSERT INTO gc_tbl_user 
   		(no, name, email, password) 
     VALUES 
     	(SEQ_ID.NEXTVAL,#{name},#{email},#{password})

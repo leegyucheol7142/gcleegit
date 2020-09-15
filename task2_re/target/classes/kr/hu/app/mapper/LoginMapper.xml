@@ -6,7 +6,7 @@
 
 	<select id="loginUser" parameterType="kr.hu.app.bean.UserBean" resultType="kr.hu.app.bean.UserBean">
 		SELECT no, name, email, password, same, regdate
-		FROM tbl_user
+		FROM gc_tbl_user
 		WHERE name = #{name} AND password = #{password}
 	</select>
  </mapper>

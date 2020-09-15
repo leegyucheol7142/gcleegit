@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.hu.app.bean.UserBean;
 import kr.hu.app.service.SignupService;
-import kr.hu.app.service.UserSha256;
 
 @Controller
 @RequestMapping("/signup")

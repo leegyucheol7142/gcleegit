@@ -27,8 +27,8 @@
 	<div id="middle">
 		<div id="side">
 			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">N.board</a></li>
+				<li><a href="/task2">Home</a></li>
+				<li><a href="/task2/board/list">N.board</a></li>
 				<li><a href="#">N.board2</a></li>
 				<li><a href="#">Bar graph</a></li>
 				<li><a href="#">Chat</a></li>

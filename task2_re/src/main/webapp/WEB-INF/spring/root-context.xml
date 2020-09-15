@@ -36,6 +36,9 @@
 		class="kr.hu.app.service.SignupServiceImp" />
 		
 	<bean id="loginService"
-		class="kr.hu.app.service.LoginServiceImp" />	
+		class="kr.hu.app.service.LoginServiceImp" />
+	
+	<bean id="BoardService"
+		class="kr.hu.app.service.BoardServiceImp" />
 
 </beans>
