@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.hu.app.bean.BoardBean;
+import kr.hu.app.bean.Criteria;
+import kr.hu.app.bean.PageMaker;
 import kr.hu.app.bean.UserBean;
 import kr.hu.app.service.BoardService;
 
@@ -21,10 +23,15 @@ public class BoardController {
 		private BoardService boardService;
 		
 		@RequestMapping(value = "list", method = RequestMethod.GET)
-		public String list(Model model) throws Exception{
+		public String list(Model model, Criteria cri) throws Exception{
 
-			model.addAttribute("list", boardService.list());
+			model.addAttribute("list", boardService.listPage(cri));
 			
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(boardService.listCount());
+			
+			model.addAttribute("pageMaker", pageMaker);
 			return "board/list";
 		}
 

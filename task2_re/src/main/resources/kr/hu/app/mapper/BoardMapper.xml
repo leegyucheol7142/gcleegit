@@ -11,12 +11,41 @@
     	(SEQ_BOARD.NEXTVAL,#{title},#{user_no},#{content})
   </insert>
   
-	<select id="list" resultType="kr.hu.app.bean.BoardBean">
-		SELECT board_no, title, user_no, reg
-    	FROM gc_tbl_board
+	<select id="listPage" resultType="kr.hu.app.bean.BoardBean" parameterType="kr.hu.app.bean.Criteria">
+		SELECT  board_no, 
+		        title, 
+		        content,
+		        user_no, 
+		        reg
+		 FROM ( 
+		        SELECT board_no, 
+		               title, 
+		               content, 
+		               user_no, 
+		               reg, 
+		               ROW_NUMBER() OVER(ORDER BY board_no DESC) AS RNUM
+		         FROM gc_tbl_board
+		                       ) MP
+		WHERE RNUM between #{rowStart} AND #{rowEnd}
 		ORDER BY board_no DESC
 	</select>
+	<!--  게시물 총 개수 -->
+	<select id="listCount" resultType="int">
+	<![CDATA[	
+		SELECT COUNT(board_no)
+		FROM gc_tbl_board
+		WHERE board_no > 0
+	]]>	
+	</select>
 	
+	<!-- <sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql> -->
 	<select id="read" resultType="kr.hu.app.bean.BoardBean" parameterType="int">
 		SELECT	board_no
 			  , title

@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="resources/css/common.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<title>메인화면</title>
-	
 	<script type="text/javascript">
 	function moveLogin(){
 	     location.href = "/task2/login";

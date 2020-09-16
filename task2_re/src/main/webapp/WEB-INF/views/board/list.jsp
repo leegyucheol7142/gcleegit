@@ -10,14 +10,17 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <meta charset="UTF-8">
 <title>일반 게시판</title>
-<script type="text/javascript">
-	$(function() {
-		$('#cancel').on('click', function(event) {
-			event.preventDefault()
-			location.href = "/task2";
+	<style type="text/css">
+				li {list-style: none; float: left;}
+	</style>
+	<script type="text/javascript">
+		$(function() {
+			$('#cancel').on('click', function(event) {
+				event.preventDefault()
+				location.href = "/task2";
+			});
 		});
-	});
-</script>
+	</script>
 </head>
 <body>
 	<section>
@@ -49,20 +52,29 @@
 				</c:otherwise>
 			</c:choose>
 			</div>
+			<div>
+			  <ul>
+			    <c:if test="${pageMaker.prev}">
+			    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+			    </c:if> 
+			
+			    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+			    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
+			    </c:forEach>
+			
+			    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+			    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+			    </c:if> 
+			  </ul>
+			</div>
 		<c:choose>
            		<c:when test="${ empty loginuser }">
-           			<div class="number" style="text-align: center;">
-						<a class="left-arrow" href="javascript:void(0);" id="left-arrow">&#60;</a>
-						<div id="pagging" style="display: inline-block;"></div>
-						<a class="right-arrow" href="javascript:void(0);" id="right-arrow">&#62;</a>
+           			<div class="number" style="text-align: right:;">
 						<a href="/task2/login">글쓰기</a>
 					</div>
                 </c:when>
                 <c:otherwise>
-                	<div class="number" style="text-align: center;">
-						<a class="left-arrow" href="javascript:void(0);" id="left-arrow">&#60;</a>
-						<div id="pagging" style="display: inline-block;"></div>
-						<a class="right-arrow" href="javascript:void(0);" id="right-arrow">&#62;</a>
+                	<div class="number" style="text-align: right;">
 						<a href="write">글쓰기</a>
 					</div>
                  </c:otherwise>

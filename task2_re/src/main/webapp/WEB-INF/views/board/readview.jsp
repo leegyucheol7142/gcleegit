@@ -24,7 +24,7 @@
 			
 			// 삭제
 			$(".delete_btn").on("click", function(){
-				formObj.attr("action", "/board/delete");
+				formObj.attr("action", "delete");
 				formObj.attr("method", "post");
 				formObj.submit();
 			})
@@ -32,7 +32,7 @@
 			// 취소
 			$(".list_btn").on("click", function(){
 				
-				location.href = "/board/list";
+				location.href = "list";
 			})
 		})
 	</script>

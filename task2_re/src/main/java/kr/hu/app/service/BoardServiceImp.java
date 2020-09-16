@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import kr.hu.app.bean.BoardBean;
+import kr.hu.app.bean.Criteria;
 import kr.hu.app.mapper.BoardMapper;
 
 @Service
@@ -23,9 +24,16 @@ public class BoardServiceImp implements BoardService {
 	}
 	// 게시물 목록 조회
 	@Override
-	public List<BoardBean> list() throws Exception {
+	public List<BoardBean> listPage(Criteria cri) throws Exception {
 		
-			return boardMapper.list();
+			return boardMapper.listPage(cri);
+	}
+	
+	//게시물 총 갯수
+	@Override
+	public int listCount() throws Exception {
+		
+			return boardMapper.listCount();
 	}
 	//게시글  조회
 	@Override
