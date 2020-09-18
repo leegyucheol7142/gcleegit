@@ -8,55 +8,40 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <title>회원가입</title>
 <script type="text/javascript">
-	function validate() {
-		var re = /^[a-zA-Z0-9]{4,12}$/;
-		var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	
-		var id = document.getElementById("name");
-		var email = document.getElementById("email");
-		var pw = document.getElementById("password");
+	$(function() {
+		$('#signup').on('submit', function(e) {
+			
+		var id = new RegExp("^[a-zA-Z][a-zA-Z0-9]{3,11}$","g");
+		var pw = new RegExp("[a-zA-Z][a-zA-Z0-9]{3,11}$","g");
+		var email = new RegExp("^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$", "g");
 		
-		if(id.value == ""){
-			 
-			  alert("id를 입력해주세요.");
-			 
-			  return false;
-			 
+		if (!id.test($('#name').val())) {
+			alert("아이디 형식에 맞지 않습니다.");
+			$('#name').val("");
+			$('#name').focus();
+			return false;
+		} else if (!pw.test($('#password').val())) {
+			alert("비밀번호 형식에 맞지 않습니다.");
+			$('#password').val("");
+			$('#password').focus();
+			return false;
+		} else if ($('#password').val() !== $('#passwordcheck').val()) {
+			alert("비밀번호가 일치하지 않습니다.");
+			$('#passwordcheck').val("");
+			$('#passwordcheck').focus();
+			return false;
+		} else if (!email.test($('#email').val())) {
+			alert("이메일 형식이 맞지 않습니다.");
+			$('#email').val("");
+			$('#email').focus();
+			return false;
+		} else {
+			return true;
 		}
-		
-		if(!re.test(id,value)){
-			alert("아이디는 4~12자의 영문 대소문자와 숫자로만 입력"); 
-	       return false;
-	   	}
-		
-		if(!re.test(pw,value)){
-			alert("비밀번호는 4~12자의 영문 대소문자와 숫자로만 입력"); 
-	       return false;
-	   	}
-	   	
-	   	if(!check(re,pw,"패스워드는 4~12자의 영문 대소문자와 숫자로만 입력")) {
-	       return false;
-	   	}
-	   	
-	   	if(email.value=="") {
-	       alert("이메일을 입력해 주세요");
-	       email.focus(); // 이메일로 커서를 강제 이동
-	       return false;
-	   	}
-	    if(!check(re2, email, "적합하지 않은 이메일 형식입니다.")) {
-	           return false;
-	    }
-		
-	    alert("회원가입이 완료되었습니다.");
-	    
-	    function check(re, what, message) {
-	        if(re.test(what.value)) {
-	            return true;
-	        }
-	        alert(message);
-	        what.value = "";
-	        what.focus();
-}
+	});
+	
+});
+
 </script>
 </head>
 <body>
@@ -75,10 +60,10 @@
 		</div>
 		<div id="container">    
 			<h2>Sign Up</h2>
-		<form action="/task2/signup" method="post" name="join">
+		<form id = "signup" action="/task2/signup" method="post" name="join">
 			<div>
 		    	<label for="name">Name:</label><br>
-	      		<input type="text" id="name" name="name" required="required" placeholder="이름을 입력하세요."><br>
+	      		<input type="text" id="name" name="name" required="required" placeholder="첫글자는 영문으로 시작해주세요"><br>
 		  	</div>
 			<div>
 		    	<label for="email">Email:</label><br>
@@ -86,7 +71,11 @@
 		  	</div>
 		  	<div>
 		    	<label for="pwd">Password:</label><br>
-		      	<input type="password" id="password" name="password" required="required" placeholder="비밀번호를 입력하세요."><br>
+		      	<input type="password" id="password" name="password" required="required" placeholder="비밀번호는 영문 or 숫자 4~12자리로 해주세요"><br>
+		  	</div>
+		  	<div>
+		    	<label for="pwd">Password::</label><br>
+		      	<input type="password" id="passwordcheck" name="password" required="required" placeholder="비밀번호를 확인하세요."><br>
 		  	</div>		  	
 		  	<div>
 		      	<button type="submit">가입</button>

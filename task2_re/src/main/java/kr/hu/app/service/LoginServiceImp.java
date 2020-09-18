@@ -22,7 +22,6 @@ public class LoginServiceImp implements LoginService {
 		String hashedPasswd = Util.getHashedString(plainPasswd, "SHA-256");
 		ub.setPassword(hashedPasswd);
 		UserBean ub2 = loginMapper.loginUser(ub);
-		System.out.println(ub2.getName());
 		return ub2;
 		
 	}

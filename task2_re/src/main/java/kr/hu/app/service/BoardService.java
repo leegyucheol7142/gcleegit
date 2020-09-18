@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.hu.app.bean.BoardBean;
 import kr.hu.app.bean.Criteria;
+import kr.hu.app.bean.SearchBean;
 
 public interface BoardService {
 	
@@ -11,10 +12,10 @@ public interface BoardService {
 	public void setWrite(BoardBean bb);
 	
 	//게시물 목록 조회
-	public List<BoardBean> listPage(Criteria cri) throws Exception;
+	public List<BoardBean> listPage(SearchBean sb) throws Exception;
 	
 	//게시물 총 갯수
-	public int listCount() throws Exception;
+	public int listCount(SearchBean sb) throws Exception;
 	
 	//게시글  조회
 	public BoardBean read(int board_no) throws Exception;

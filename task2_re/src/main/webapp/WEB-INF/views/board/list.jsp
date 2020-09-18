@@ -20,10 +20,28 @@
 				location.href = "/task2";
 			});
 		});
+		
+		$(function(){
+	        $('#searchBtn').click(function() {
+	          self.location = "list" + '${pageBean.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+	        });
+	      });   
 	</script>
 </head>
 <body>
-	<section>
+			<div id="title">
+				<h1>휴에이션 과제</h1>
+			</div>
+			<div id="middle">
+				<div id="side">
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li><a href="#">N.board</a></li>
+						<li><a href="#">N.board2</a></li>
+						<li><a href="#">Bar graph</a></li>
+						<li><a href="#">Chat</a></li>
+					</ul>
+				</div>
 			<div class="faq_tb">
 				<ul>
 					<li class="no title">NO.</li>
@@ -31,54 +49,69 @@
 					<li class="name title">작성자</li>
 					<li class="date title">작성일</li>
 				</ul>
-			<c:choose>
-				<c:when test='${list.isEmpty()}'>
-					<ul>
-						<li><h3 style="text-align: center;">작성된 게시글이 없습니다.</h3></li>
-					</ul>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="list" items="${list}">
-					<ul>
-						<li class="body">
-							<ul class="accordion">
-								<li class="no"><c:out value="${list.board_no}" /></li>
-								<li class="detail subject"><a href="lookup?board_no=${list.board_no}"><c:out value="${list.title}" /></a></li>
-								<li class="name"><c:out value="${list.user_no}" /></li>
-								<li class="date"><fmt:formatDate value="${list.reg}" pattern="yyyy-MM-dd"/></li>
+			<form role="form" method="get">
+					<c:choose>
+						<c:when test='${list.isEmpty()}'>
+							<ul>
+								<li><h3 style="text-align: center;">작성된 게시글이 없습니다.</h3></li>
 							</ul>
-					</ul>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="list" items="${list}">
+							<ul>
+								<li class="body">
+									<ul class="accordion">
+										<li class="no"><c:out value="${list.board_no}" /></li>
+										<li class="detail subject"><a href="lookup?board_no=${list.board_no}"><c:out value="${list.title}" /></a></li>
+										<li class="name"><c:out value="${list.user_no}" /></li>
+										<li class="date"><fmt:formatDate value="${list.reg}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
+									</ul>
+							</ul>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 			</div>
-			<div>
-			  <ul>
-			    <c:if test="${pageMaker.prev}">
-			    	<li><a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
-			    </c:if> 
+			<div class="search">
+			    <select name="searchType">
+			      <option value="n"<c:out value="${sb.searchType == null ? 'selected' : ''}"/>>-----</option>
+			      <option value="t"<c:out value="${sb.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+			      <option value="c"<c:out value="${sb.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+			      <option value="w"<c:out value="${sb.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+			      <option value="tc"<c:out value="${sb.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+			    </select>
 			
-			    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-			    	<li><a href="list${pageMaker.makeQuery(idx)}">${idx}</a></li>
-			    </c:forEach>
+			    <input type="text" name="keyword" id="keywordInput" value="${sb.keyword}"/>
 			
-			    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-			    	<li><a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-			    </c:if> 
-			  </ul>
-			</div>
-		<c:choose>
-           		<c:when test="${ empty loginuser }">
-           			<div class="number" style="text-align: right:;">
-						<a href="/task2/login">글쓰기</a>
+			    <button id="searchBtn" type="button">검색</button>
+		  	</div>
+					<div>
+					  <ul>
+					    <c:if test="${pageBean.prev}">
+					    	<li><a href="list${pageBean.makeSearch(pageBean.startPage - 1)}">이전</a></li>
+					    </c:if> 
+					
+					    <c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var="idx">
+					    	<li><a href="list${pageBean.makeSearch(idx)}">${idx}</a></li>
+					    </c:forEach>
+					
+					    <c:if test="${pageBean.next && pageBean.endPage > 0}">
+					    	<li><a href="list${pageBean.makeSearch(pageBean.endPage + 1)}">다음</a></li>
+					    </c:if> 
+					  </ul>
 					</div>
-                </c:when>
-                <c:otherwise>
-                	<div class="number" style="text-align: right;">
-						<a href="write">글쓰기</a>
-					</div>
-                 </c:otherwise>
-        </c:choose>
-    </section>
+				<c:choose>
+		           		<c:when test="${ empty loginuser }">
+		           			<div class="number" style="text-align: right:;">
+								<a href="/task2/login">글쓰기</a>
+							</div>
+		                </c:when>
+		                <c:otherwise>
+		                	<div class="number" style="text-align: right;">
+								<a href="write">글쓰기</a>
+							</div>
+		                 </c:otherwise>
+		        </c:choose>
+    		</form>
+    		</div>
 </body>
 </html>

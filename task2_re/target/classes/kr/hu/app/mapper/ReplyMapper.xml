@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.hu.app.mapper.ReplyMapper">
+
+	<select id="readReply" resultType="kr.hu.app.bean.ReplyBean">
+		select comment_no, content, user_no, reg
+		from gc_tbl_comment
+		where board_no = #{board_no}   
+	</select>
+	
+	<insert id="writeReply">
+		INSERT INTO gc_tbl_comment
+			(board_no, comment_no, content, user_no)
+    	VALUES
+    		(#{board_no}, seq_com.nextval, #{content}, #{user_no})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="kr.hu.app.bean.ReplyBean">
+		UPDATE gc_tbl_comment SET content = #{content}
+		WHERE comment_no = #{comment_no}
+	</update>
+
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="kr.hu.app.bean.ReplyBean">
+		DELETE FROM gc_tbl_comment
+		WHERE comment_no = #{comment_no}
+	</delete>
+	
+	<!-- 선택된 댓글 조회 -->
+	<select id="selectReply" resultType="kr.hu.app.bean.ReplyBean">
+		SELECT
+				board_no
+			  , comment_no
+			  , content
+			  , user_no
+			  , reg
+		  FROM gc_tbl_comment
+		 WHERE comment_no = #{comment_no}
+	</select>
+</mapper>

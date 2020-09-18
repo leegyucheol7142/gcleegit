@@ -6,7 +6,7 @@
 }
 .faq_tb{
 	text-align: center;
-	font-size: 0.7rem;
+	font-size: 12px;
 }
 .faq_tb > ul, #faq_list li.body > ul {border-bottom: 1px solid #d9d9d9}
 #faq_list li.body li{ 

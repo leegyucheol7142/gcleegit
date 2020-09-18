@@ -40,5 +40,7 @@
 	
 	<bean id="BoardService"
 		class="kr.hu.app.service.BoardServiceImp" />
-
+	
+	<bean id="ReplyService"
+		class="kr.hu.app.service.ReplyServiceImp" />
 </beans>

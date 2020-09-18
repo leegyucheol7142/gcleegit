@@ -11,7 +11,7 @@
 			
 			$(".cancel_btn").on("click", function(){
 				event.preventDefault();
-				location.href = "/board/list";
+				location.href = "list";
 			})
 		})
 	
@@ -52,7 +52,7 @@
 							<tr>
 								<td>
 									<label for="regdate">작성날짜</label>
-									<fmt:formatDate value="${update.reg}" pattern="yyyy-MM-dd"/>					
+									<fmt:formatDate value="${update.reg}" pattern="yyyy-MM-dd HH:mm:ss"/>					
 								</td>
 							</tr>		
 						</tbody>			

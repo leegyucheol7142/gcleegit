@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import kr.hu.app.bean.BoardBean;
 import kr.hu.app.bean.Criteria;
+import kr.hu.app.bean.SearchBean;
 import kr.hu.app.mapper.BoardMapper;
 
 @Service
+@Qualifier("boardService")
 public class BoardServiceImp implements BoardService {
 
 	@Autowired
@@ -24,16 +26,16 @@ public class BoardServiceImp implements BoardService {
 	}
 	// 게시물 목록 조회
 	@Override
-	public List<BoardBean> listPage(Criteria cri) throws Exception {
+	public List<BoardBean> listPage(SearchBean sb) throws Exception {
 		
-			return boardMapper.listPage(cri);
+			return boardMapper.listPage(sb);
 	}
 	
 	//게시물 총 갯수
 	@Override
-	public int listCount() throws Exception {
+	public int listCount(SearchBean sb) throws Exception {
 		
-			return boardMapper.listCount();
+			return boardMapper.listCount(sb);
 	}
 	//게시글  조회
 	@Override

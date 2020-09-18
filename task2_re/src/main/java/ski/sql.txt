@@ -18,13 +18,17 @@ CREATE TABLE gc_tbl_board(
 );
 
 //´ñ±Û Å×ÀÌºí
-CREATE TABLE gc_tbl_comment(
-    comment_no NUMBER NOT NULL PRIMARY KEY,
-    title VARCHAR2(30) NOT NULL,
-    bno VARCHAR(20) NOT NULL,
-    comment_content VARCHAR2(100) NOT NULL,
-    comment_reg DATE DEFAULT(sysdate)
-);
+CREATE TABLE gc_tbl_comment (
+    board_no NUMBER NOT NULL,
+    comment_no NUMBER NOT NULL,
+    content VARCHAR2(1000) NOT NULL,
+    user_no VARCHAR2(50) NOT NULL,
+    reg DATE DEFAULT sysdate,
+    PRIMARY KEY(board_no, comment_no)
+    );
+alter table gc_tbl_comment add constraint gc_tbl_comment_board_no foreign key(board_no)
+references gc_tbl_board(board_no);
+CREATE SEQUENCE seq_com START WITH 1 MINVALUE 0;
 
 
 
