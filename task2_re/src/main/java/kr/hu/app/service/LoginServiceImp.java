@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import kr.hu.app.bean.UserBean;
-import kr.hu.app.config.Util;
 import kr.hu.app.mapper.LoginMapper;
+import kr.hu.app.util.Util;
 
 @Service
 public class LoginServiceImp implements LoginService {

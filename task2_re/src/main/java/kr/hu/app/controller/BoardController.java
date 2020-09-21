@@ -1,8 +1,12 @@
 package kr.hu.app.controller;
 
 
+import java.io.File;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.hu.app.bean.BoardBean;
@@ -46,7 +52,7 @@ public class BoardController {
 			model.addAttribute("pageBean", pb);
 			return "board/list";
 		}
-
+		
 		@RequestMapping(value = "write", method = RequestMethod.GET)
 		public String BoardWriteForm() {
 
@@ -54,12 +60,16 @@ public class BoardController {
 		}
 		
 		@RequestMapping(value = "lookup", method = RequestMethod.GET)
-		public String read(BoardBean bb, Model model, SearchBean sb) throws Exception{
+		public String read(BoardBean bb, Model model, @ModelAttribute("sb") SearchBean sb) throws Exception{
 			
 			model.addAttribute("read", boardService.read(bb.getBoard_no()));
+			model.addAttribute("sb", sb
+					);
 			List<ReplyBean> replyList = replyService.readReply(bb.getBoard_no());
 			model.addAttribute("replyList", replyList);
-			model.addAttribute("sb", sb);
+			
+			List<Map<String, Object>> fileList = boardService.selectFileList(bb.getBoard_no());
+			model.addAttribute("file", fileList);
 			return "board/readview";
 		}
 		
@@ -87,11 +97,11 @@ public class BoardController {
 			return "redirect:/board/list";
 		}
 		@RequestMapping(value = "write", method = RequestMethod.POST)
-		public String boardwrite(BoardBean bb, HttpSession session) {
+		public String boardwrite(BoardBean bb, MultipartHttpServletRequest mpRequest, HttpSession session) throws Exception {
 			UserBean ub = (UserBean) session.getAttribute("loginuser"); String boardId =
 			ub.getName(); bb.setUser_no(boardId);
 			bb.setContent(bb.getContent().replaceAll("\r\n", "<br>"));
-			boardService.setWrite(bb);
+			boardService.setWrite(bb, mpRequest);
 			return "redirect:list";
 		}
 		
@@ -158,5 +168,23 @@ public class BoardController {
 			rttr.addAttribute("keyword", sb.getKeyword());
 			
 			return "redirect:/board/lookup?";
+		}
+		
+		//첨부파일 다운로드
+		@RequestMapping(value="/fileDown")
+		public void fileDown(@RequestParam Map<String, Object> map, HttpServletResponse response) throws Exception{
+			Map<String, Object> resultMap = boardService.selectFileInfo(map);
+			String storedFileName = (String) resultMap.get("STORED_FILE_NAME");
+			String originalFileName = (String) resultMap.get("ORG_FILE_NAME");
+			
+			byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\mp\\file\\"+storedFileName));
+			
+			response.setContentType("application/octet-stream");
+			response.setContentLength(fileByte.length);
+			response.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(originalFileName, "UTF-8")+"\";");
+			response.getOutputStream().write(fileByte);
+			response.getOutputStream().flush();
+			response.getOutputStream().close();
+			
 		}
 }		

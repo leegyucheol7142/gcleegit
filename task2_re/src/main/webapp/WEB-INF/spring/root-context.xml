@@ -32,6 +32,8 @@
 	<mybatis-spring:scan
 		base-package="kr.hu.app.mapper" />
 		
+	<context:component-scan base-package="kr.hu.app.util"></context:component-scan>
+		
 	<bean id="signupService"
 		class="kr.hu.app.service.SignupServiceImp" />
 		
@@ -43,4 +45,6 @@
 	
 	<bean id="ReplyService"
 		class="kr.hu.app.service.ReplyServiceImp" />
+	
+		
 </beans>

@@ -1,4 +1,4 @@
-package kr.hu.app.config;
+package kr.hu.app.util;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

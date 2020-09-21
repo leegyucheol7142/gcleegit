@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 	<head>
+		<link rel="stylesheet" href="/task2/resources/css/common.css">
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	 	<title>게시판</title>
 	 	<style>
@@ -60,12 +61,47 @@
 								+ "&keyword=${sb.keyword}"
 								+ "&comment_no="+$(this).attr("data-comment_no");
 			});
+			
+			//첨부파일 다운로드
+			function fn_fileDown(fileNo){
+				$("#FILE_NO").attr("value", fileNo);
+				formObj.attr("action", "fileDown");
+				formObj.submit();
+			}
 
 	})
 	</script>
 	<body>
+		<div id="top">
+	<div id="title">
+		<a href="/task2">휴에이션 과제</a>
+	</div>	
 	
-		<div id="root">
+	<div id="info">
+		<c:choose>
+			<c:when test="${empty loginuser}">
+				<input type='button' onclick='moveLogin();' name='btn' value='login' style="float: right;">
+				<input type='button' onclick='moveSignup();' name='btn' value='signup' style="float: right;">
+			</c:when>
+			<c:otherwise>
+				<input type='button' onclick="location.href='./logout'" name='btn' value='logout' style="float: right;">
+				<li>${loginuser.name}님 안녕하세요</li>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</div>
+	<div id="sidebar">
+		<div>
+			<ul>
+				<li><a href="/task2">Home</a></li>
+				<li><a href="/task2/board/list">N.board</a></li>
+				<li><a href="#">N.board2</a></li>
+				<li><a href="#">Bar graph</a></li>
+				<li><a href="#">Chat</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="container">
 			<header>
 				<h1> 게시판</h1>
 			</header>
@@ -78,28 +114,41 @@
 			
 			<section id="container">
 				<form name="readForm" role="form" method="post">
-					<input type="hidden" id="bno" name="board_no" value="${read.board_no}" />
+					<input type="hidden" id="board_no" name="board_no" value="${read.board_no}" />
+					<input type="hidden" id="page" name="page" value="${sb.page}"> 
+					<input type="hidden" id="perPageNum" name="perPageNum" value="${sb.perPageNum}"> 
+					<input type="hidden" id="searchType" name="searchType" value="${sb.searchType}"> 
+					<input type="hidden" id="keyword" name="keyword" value="${sb.keyword}"> 
+					<input type="hidden" id="FILE_NO" name="FILE_NO" value="">
 				</form>
-					<ul>
-						<li><label for="title">제목</label></li>
-						<li><input type="text" id="title" name="title" value="${read.title}"/></li>
-					</ul>	
-					<ul>
-						<li><label for="user_no">작성자</label></li>
-						<li><input type="text" id="writer" name="writer" value="${read.user_no}" /></li>
-					</ul>
-					<ul>
-						<li><label for="content">내용</label></li>
-						<li><textarea id="content" name="content"><c:out value="${read.content}" /></textarea></li>
-					</ul>
-					<ul>
-						<li><label for="regdate">작성날짜</label></li>
-						<li><fmt:formatDate value="${read.reg}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
-					</ul>		
+					<div class="form-group">	
+						<label for="title">제목</label>
+						<input type="text" id="title" name="title" class="form-control" value="${read.title}"/>
+					</div>	
+					<div class="form-group">
+						<label for="user_no">작성자</label>
+						<input type="text" id="user_no" name="user_no" class="form-control" value="${read.user_no}" />
+					</div>
+					<div class="form-group">
+						<label for="content">내용</label>
+						<textarea id="content" name="content" class="form-control" readonly="readonly"><c:out value="${read.content}" /></textarea>
+					</div>
+					<div class="form-group">
+						<label for="regdate">작성날짜</label>
+						<fmt:formatDate value="${read.reg}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					</div>
+					<hr>
+					<span>파일 목록</span>
+					<div class="form-group" style="border: 1px solid #dbdbdb;">
+						<c:forEach var="file" items="${file}">
+							<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)<br>
+						</c:forEach>
+					</div>
+					<hr>		
 					<div>
-						<button type="submit" class="update_btn">수정</button>
-						<button type="submit" class="delete_btn">삭제</button>
-						<button type="submit" class="list_btn">목록</button>	
+						<button type="button" class="update_btn">수정</button>
+						<button type="button" class="delete_btn">삭제</button>
+						<button type="button" class="list_btn">목록</button>	
 					</div>
 					
 					<!-- 댓글 -->

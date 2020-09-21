@@ -62,3 +62,10 @@ ul::after{
 		font-weight: bold;
 		border-top: 1px solid;
 }
+
+#lcontainer {
+		width: 550px;
+		margin: 0 auto;
+		padding: 0 0;
+		text-align: left;
+}	

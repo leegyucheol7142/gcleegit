@@ -1,12 +1,12 @@
 package kr.hu.app.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import kr.hu.app.bean.BoardBean;
-import kr.hu.app.bean.Criteria;
 import kr.hu.app.bean.SearchBean;
 
 @Mapper
@@ -29,5 +29,15 @@ public interface BoardMapper {
 	
 	//게시글 삭제
 	public void delete(int board_no) throws Exception;
+	
+	//첨부파일 업로드
+	public void insertFile(Map<String, Object> map) throws Exception;
+	
+	//첨부파일 조회
+	public List<Map<String, Object>> selectFileList(int board_no) throws Exception;
+	
+	//첨부파일 다운
+	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	
 }
 

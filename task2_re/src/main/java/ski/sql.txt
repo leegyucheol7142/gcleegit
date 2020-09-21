@@ -30,5 +30,17 @@ alter table gc_tbl_comment add constraint gc_tbl_comment_board_no foreign key(bo
 references gc_tbl_board(board_no);
 CREATE SEQUENCE seq_com START WITH 1 MINVALUE 0;
 
+//첨부파일 테이블
+CREATE TABLE gc_tbl_file
+(
+    FILE_NO NUMBER,                        
+    board_no NUMBER NOT NULL,                    
+    ORG_FILE_NAME VARCHAR2(260) NOT NULL,   
+    STORED_FILE_NAME VARCHAR2(36) NOT NULL, 
+    FILE_SIZE NUMBER,                       
+    REGDATE DATE DEFAULT SYSDATE NOT NULL,  
+    DEL_GB VARCHAR2(1) DEFAULT 'N' NOT NULL,
+    PRIMARY KEY(FILE_NO)                    
+);
 
 
