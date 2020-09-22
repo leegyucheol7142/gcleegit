@@ -30,6 +30,9 @@ public interface BoardMapper {
 	//게시글 삭제
 	public void delete(int board_no) throws Exception;
 	
+	//엑셀
+	public List<BoardBean> excelselect(int board_no) throws Exception;
+	
 	//첨부파일 업로드
 	public void insertFile(Map<String, Object> map) throws Exception;
 	

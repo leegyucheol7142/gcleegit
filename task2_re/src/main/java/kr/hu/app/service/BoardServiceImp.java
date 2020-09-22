@@ -70,6 +70,11 @@ public class BoardServiceImp implements BoardService {
 			boardMapper.delete(board_no);
 	}
 	
+	@Override
+	public List<BoardBean> excelselect(int board_no) throws Exception {
+		return boardMapper.excelselect(board_no);
+	}
+	
 	// 첨부파일 조회
 	public List<Map<String, Object>> selectFileList(int board_no) throws Exception {
 		

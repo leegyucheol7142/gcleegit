@@ -27,7 +27,7 @@ CREATE TABLE gc_tbl_comment (
     PRIMARY KEY(board_no, comment_no)
     );
 alter table gc_tbl_comment add constraint gc_tbl_comment_board_no foreign key(board_no)
-references gc_tbl_board(board_no);
+references gc_tbl_board(board_no) ON DELETE CASCADE;
 CREATE SEQUENCE seq_com START WITH 1 MINVALUE 0;
 
 //첨부파일 테이블

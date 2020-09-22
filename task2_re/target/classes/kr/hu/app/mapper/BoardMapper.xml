@@ -74,6 +74,13 @@
 		 WHERE board_no = #{board_no}
 	</delete>
 	
+	<!-- 엑셀 -->
+	<select id="excelselect"  resultType="kr.hu.app.bean.BoardBean">
+		select * from (select board_no,user_no,title,reg,content
+		from
+		(select * from gc_tbl_board order by board_no desc) order by board_no desc)
+	</select>
+	
 	<insert id="insertFile" parameterType="hashMap">
 		INSERT INTO gc_tbl_file(
 			FILE_NO,

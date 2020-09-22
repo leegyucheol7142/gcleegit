@@ -63,8 +63,8 @@ public class BoardController {
 		public String read(BoardBean bb, Model model, @ModelAttribute("sb") SearchBean sb) throws Exception{
 			
 			model.addAttribute("read", boardService.read(bb.getBoard_no()));
-			model.addAttribute("sb", sb
-					);
+			model.addAttribute("sb", sb);
+			
 			List<ReplyBean> replyList = replyService.readReply(bb.getBoard_no());
 			model.addAttribute("replyList", replyList);
 			
@@ -81,6 +81,34 @@ public class BoardController {
 			return "board/rewriteform";
 		}
 		
+		@RequestMapping(value = "excelform", method = RequestMethod.GET)
+		public List<BoardBean> excellist(BoardBean bb, Model model) throws Exception {
+			List<BoardBean> excellist = boardService.excelselect(bb.getBoard_no());
+			model.addAttribute("excellist", excellist);
+			return excellist;
+			
+		}
+		
+		//´ñ±Û ¼öÁ¤ 
+		@RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
+		public String replyUpdateView(ReplyBean rb, SearchBean sb, Model model) throws Exception {
+			
+			model.addAttribute("replyUpdate", replyService.selectReply(rb.getComment_no()));
+			model.addAttribute("sb", sb);
+			
+			return "board/replyUpdateView";
+		}
+		
+		//´ñ±Û »èÁ¦ 
+		@RequestMapping(value="/replyDeleteView", method = RequestMethod.GET)
+		public String replyDeleteView(ReplyBean rb, SearchBean sb, Model model) throws Exception {
+			
+			model.addAttribute("replyDelete", replyService.selectReply(rb.getComment_no()));
+			model.addAttribute("sb", sb);
+			
+			return "board/replyDeleteView";
+		}
+				
 		@RequestMapping(value = "update", method = RequestMethod.POST)
 		public String update(BoardBean bb) throws Exception{
 			
@@ -120,16 +148,6 @@ public class BoardController {
 		}
 		
 		//´ñ±Û ¼öÁ¤ 
-		@RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
-		public String replyUpdateView(ReplyBean rb, SearchBean sb, Model model) throws Exception {
-			
-			model.addAttribute("replyUpdate", replyService.selectReply(rb.getComment_no()));
-			model.addAttribute("sb", sb);
-			
-			return "board/replyUpdateView";
-		}
-		
-		//´ñ±Û ¼öÁ¤ 
 		@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
 		public String replyUpdate(ReplyBean rb, SearchBean sb, RedirectAttributes rttr) throws Exception {
 			
@@ -142,17 +160,6 @@ public class BoardController {
 			rttr.addAttribute("keyword", sb.getKeyword());
 			
 			return "redirect:/board/lookup?";
-		}
-		
-		//´ñ±Û »èÁ¦ 
-		@RequestMapping(value="/replyDeleteView", method = RequestMethod.GET)
-		public String replyDeleteView(ReplyBean rb, SearchBean sb, Model model) throws Exception {
-			
-			model.addAttribute("replyDelete", replyService.selectReply(rb.getBoard_no()));
-			model.addAttribute("sb", sb);
-			System.out.println(rb);
-			System.out.println(sb);
-			return "board/replyDeleteView";
 		}
 		
 		//´ñ±Û »èÁ¦

@@ -104,7 +104,7 @@
 					<div>
 					  <ul>
 					    <c:if test="${pageBean.prev}">
-					    	<li><a href="list${pageBean.makeSearch(pageBean.startPage - 1)}">이전</a></li>
+					    	<li><a href="list${pageBean.makeSearch(pageBean.startPage - 1)}" >이전</a></li>
 					    </c:if> 
 					
 					    <c:forEach begin="${pageBean.startPage}" end="${pageBean.endPage}" var="idx">
@@ -125,6 +125,8 @@
 		                <c:otherwise>
 		                	<div class="number" style="text-align: right;">
 								<a href="write">글쓰기</a>
+								<a href="excelform">엑셀다운로드</a>
+								<a href="upExcel">엑셀업로드</a>
 							</div>
 		                 </c:otherwise>
 		        </c:choose>

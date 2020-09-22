@@ -49,14 +49,14 @@
 	<div id="container">
 		<section>
 				<div class="writemodal">
-					<form action="write" method="post" enctype="multipart/form-data">
+					<form role="form" action="write" method="post" enctype="multipart/form-data">
 						<div class="one">
 							<label for="title">제목</label> 
 							<input id="btitle" type="text" name="title" placeholder="제목을 입력하세요">
 						</div>
 				<div class="two">
 					<label for="content">내용</label>
-					<textarea id="content" cols="58" rows="8" name="content" placeholder="내용을 입력하세요"></textarea>
+					<textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
 				</div>
 				<div>
 					<input type="file" name="file">

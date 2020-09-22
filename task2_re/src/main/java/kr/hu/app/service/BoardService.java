@@ -28,9 +28,13 @@ public interface BoardService {
 	//게시글 삭제
 	public void delete(int board_no) throws Exception;
 	
+	//엑셀
+	public List<BoardBean> excelselect(int board_no) throws Exception;
+	
 	//첨부파일 조회
 	public List<Map<String, Object>> selectFileList(int bno) throws Exception;
 	
 	//첨부파일 다운
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+
 }

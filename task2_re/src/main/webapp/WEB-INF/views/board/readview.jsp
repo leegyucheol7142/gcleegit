@@ -13,63 +13,69 @@
 			</style>
 	</head>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			var formObj = $("form[name='readForm']");
-			var formObj2 = $("form[name='replyForm']");
-			// 수정 
-			$(".update_btn").on("click", function(){
-				formObj.attr("action", "rewrite");
-				formObj.attr("method", "get");
-				formObj.submit();				
-			})
+	$(document).ready(function(){
+		var formObj = $("form[name='readForm']");
+		
+		// 수정 
+		$(".update_btn").on("click", function(){
+			formObj.attr("action", "rewrite");
+			formObj.attr("method", "get");
+			formObj.submit();				
+		})
+		
+		// 삭제
+		$(".delete_btn").on("click", function(){
 			
-			// 삭제
-			$(".delete_btn").on("click", function(){
-				formObj.attr("action", "delete");
-				formObj.attr("method", "post");
-				formObj.submit();
-			})
-			
-			// 취소
-			$(".list_btn").on("click", function(){
+			var deleteYN = confirm("삭제하시겠습니까?");
+			if(deleteYN == true){
 				
-				location.href = "list";
-			})
-			
-			//댓글 작성
-			$(".replyWriteBtn").on("click", function(){
-			  formObj2.attr("action", "replyWrite");
-			  formObj2.submit();
-			});
-			
-			//댓글 수정 View
-			$(".replyUpdateBtn").on("click", function(){
-				location.href = "/task2/board/replyUpdateView?board_no=${read.board_no}"
-								+ "&page=${sb.page}"
-								+ "&perPageNum=${sb.perPageNum}"
-								+ "&searchType=${sb.searchType}"
-								+ "&keyword=${sb.keyword}"
-								+ "&comment_no="+$(this).attr("data-comment_no");
-			});
-					
-			//댓글 삭제 View
-			$(".replyDeleteBtn").on("click", function(){
-				location.href = "/task2/board/replyDeleteView?bno=${read.board_no}"
-								+ "&page=${sb.page}"
-								+ "&perPageNum=${sb.perPageNum}"
-								+ "&searchType=${sb.searchType}"
-								+ "&keyword=${sb.keyword}"
-								+ "&comment_no="+$(this).attr("data-comment_no");
-			});
-			
-			//첨부파일 다운로드
-			function fn_fileDown(fileNo){
-				$("#FILE_NO").attr("value", fileNo);
-				formObj.attr("action", "fileDown");
-				formObj.submit();
+			formObj.attr("action", "delete");
+			formObj.attr("method", "post");
+			formObj.submit();
+				
 			}
-
-	})
+		})
+		
+		// 목록
+		$(".list_btn").on("click", function(){
+			
+			location.href = "list?page=${sb.page}"
+					      +"&perPageNum=${sb.perPageNum}"
+					      +"&searchType=${sb.searchType}&keyword=${sb.keyword}";
+		})
+		
+		$(".replyWriteBtn").on("click", function(){
+			var formObj = $("form[name='replyForm']");
+			formObj.attr("action", "replyWrite");
+			formObj.submit();
+		});
+		
+		//댓글 수정 View
+		$(".replyUpdateBtn").on("click", function(){
+			location.href = "/task2/board/replyUpdateView?board_no=${read.board_no}"
+							+ "&page=${sb.page}"
+							+ "&perPageNum=${sb.perPageNum}"
+							+ "&searchType=${sb.searchType}"
+							+ "&keyword=${sb.keyword}"
+							+ "&comment_no="+$(this).attr("data-comment_no");
+		});
+		
+		//댓글 삭제 View
+		$(".replyDeleteBtn").on("click", function(){
+			location.href = "/task2/board/replyDeleteView?bno=${read.board_no}"
+							+ "&page=${sb.page}"
+							+ "&perPageNum=${sb.perPageNum}"
+							+ "&searchType=${sb.searchType}"
+							+ "&keyword=${sb.keyword}"
+							+ "&comment_no="+$(this).attr("data-comment_no");
+		});
+		})
+		function fn_fileDown(fileNo){
+			var formObj = $("form[name='readForm']");
+			$("#FILE_NO").attr("value", fileNo);
+			formObj.attr("action", "fileDown");
+			formObj.submit();
+		}
 	</script>
 	<body>
 		<div id="top">
