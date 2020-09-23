@@ -106,7 +106,7 @@ public class BoardController {
 			model.addAttribute("replyDelete", replyService.selectReply(rb.getComment_no()));
 			model.addAttribute("sb", sb);
 			
-			return "board/replyDeleteView";
+			return "redirect:/board/list";
 		}
 				
 		@RequestMapping(value = "update", method = RequestMethod.POST)
@@ -126,8 +126,9 @@ public class BoardController {
 		}
 		@RequestMapping(value = "write", method = RequestMethod.POST)
 		public String boardwrite(BoardBean bb, MultipartHttpServletRequest mpRequest, HttpSession session) throws Exception {
-			UserBean ub = (UserBean) session.getAttribute("loginuser"); String boardId =
-			ub.getName(); bb.setUser_no(boardId);
+			UserBean ub = (UserBean) session.getAttribute("loginuser");
+			String boardId =ub.getName();
+			bb.setUser_no(boardId);
 			bb.setContent(bb.getContent().replaceAll("\r\n", "<br>"));
 			boardService.setWrite(bb, mpRequest);
 			return "redirect:list";
@@ -136,7 +137,6 @@ public class BoardController {
 		//¥Ò±€ ¿€º∫
 		@RequestMapping(value="/replyWrite", method = RequestMethod.POST)
 		public String replyWrite(ReplyBean rb, SearchBean sb, RedirectAttributes rttr) throws Exception {
-			System.out.println(rb);
 			replyService.writeReply(rb);
 			rttr.addAttribute("Board_no", rb.getBoard_no());
 			rttr.addAttribute("page", sb.getPage());

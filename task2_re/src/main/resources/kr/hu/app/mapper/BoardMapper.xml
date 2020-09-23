@@ -56,7 +56,6 @@
 			  , title
 			  , content
 			  , user_no
-			  , reg
 		 FROM gc_tbl_board
 		 WHERE board_no = #{board_no}
 	</select>

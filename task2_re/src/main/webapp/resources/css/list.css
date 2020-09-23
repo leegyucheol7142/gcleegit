@@ -8,7 +8,10 @@
 	text-align: center;
 	font-size: 12px;
 }
-.faq_tb > ul, #faq_list li.body > ul {border-bottom: 1px solid #d9d9d9}
+.faq_tb > ul, #faq_list li.body > ul {
+			border-bottom: 1px solid #d9d9d9;
+			border-top: 1px solid #d9d9d9;
+			}
 #faq_list li.body li{ 
 			padding-bottom: 1rem;
 			padding-top: 1rem;
@@ -68,4 +71,6 @@ ul::after{
 		margin: 0 auto;
 		padding: 0 0;
 		text-align: left;
-}	
+}
+
+a {text-decoration: none;}	

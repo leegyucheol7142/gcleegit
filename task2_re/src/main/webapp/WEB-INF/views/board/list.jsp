@@ -29,36 +29,12 @@
 	</script>
 </head>
 <body>
-			<div id="top">
-	<div id="title">
-		<a href="/task2">휴에이션 과제</a>
-	</div>	
-	
-	<div id="info">
-		<c:choose>
-			<c:when test="${empty loginuser}">
-				<input type='button' onclick='moveLogin();' name='btn' value='login' style="float: right;">
-				<input type='button' onclick='moveSignup();' name='btn' value='signup' style="float: right;">
-			</c:when>
-			<c:otherwise>
-				<input type='button' onclick="location.href='./logout'" name='btn' value='logout' style="float: right;">
-				<li>${loginuser.name}님 안녕하세요</li>
-			</c:otherwise>
-		</c:choose>
-	</div>
-</div>
-	<div id="sidebar">
-		<div>
-			<ul>
-				<li><a href="/task2">Home</a></li>
-				<li><a href="/task2/board/list">N.board</a></li>
-				<li><a href="#">N.board2</a></li>
-				<li><a href="#">Bar graph</a></li>
-				<li><a href="#">Chat</a></li>
-			</ul>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/views/main.jsp" />
 		<div id="lcontainer">
+			<div style="font-size:12pt;">
+	            <a href="upExcel">-Excel Up-</a>
+	            <a href="excelform">-Excel Down-</a>
+            </div>
 			<div class="faq_tb">
 				<ul>
 					<li class="no title">NO.</li>
@@ -125,8 +101,6 @@
 		                <c:otherwise>
 		                	<div class="number" style="text-align: right;">
 								<a href="write">글쓰기</a>
-								<a href="excelform">엑셀다운로드</a>
-								<a href="upExcel">엑셀업로드</a>
 							</div>
 		                 </c:otherwise>
 		        </c:choose>

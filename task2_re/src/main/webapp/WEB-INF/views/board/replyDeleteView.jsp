@@ -11,12 +11,6 @@
 		$(document).ready(function(){
 			var formObj = $("form[name='updateForm']");
 			
-			/* $(".delete_btn").on("click", function(){
-				formObj.attr("action", "replyDelete");
-				formObj.attr("method", "post");
-				formObj.submit();
-			}) */
-			
 			$(".cancel_btn").on("click", function(){
 				location.href = "/task2/board/lookup?board_no=${replyDelete.board_no}"
 					   + "&page=${sb.page}"

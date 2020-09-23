@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
 <link rel="stylesheet" href="resources/css/common.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<title>메인화면</title>
@@ -18,8 +16,6 @@
 	     location.href = "/task2";
 	}
 	</script>
-</head>
-<body>
 <div id="top">
 	<div id="title">
 		<a href="/task2">휴에이션 과제</a>
@@ -49,5 +45,3 @@
 			</ul>
 		</div>
 	</div>
-</body>
-</html>
