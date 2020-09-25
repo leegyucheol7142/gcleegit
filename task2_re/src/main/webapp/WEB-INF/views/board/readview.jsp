@@ -18,7 +18,7 @@
 		var formObj2 = $("form[name='readForm']");
 		// 수정 
 		$(".update_btn").on("click", function(){
-			formObj.attr("action", "rewrite");
+			formObj.attr("action", "update");
 			formObj.attr("method", "get");
 			formObj.submit();				
 		})
@@ -35,6 +35,11 @@
 				
 			}
 		})
+		
+		// 답변
+		$(".anwser_btn").on('click', function (){
+            location.href = "rewrite?board_no=${read.board_no}&step_No=${read.step_No}";
+        });
 		
 		// 목록
 		$(".list_btn").on("click", function(){
@@ -65,7 +70,7 @@
 		$(".replyDeleteBtn").on("click", function(){
 			var deleteYN = confirm("댓글을 삭제하시겠습니까?");
 			if(deleteYN == true){
-				location.href = "/task2/board/lookup?bno=${read.board_no}"
+				location.href = "/task2/board/lookup?board_no=${read.board_no}"
 					+ "&page=${sb.page}"
 					+ "&perPageNum=${sb.perPageNum}"
 					+ "&searchType=${sb.searchType}"
@@ -77,6 +82,8 @@
 				}
 		});
 		})
+		
+		//첨부파일 다운로드
 		function fn_fileDown(fileNo){
 			var formObj = $("form[name='readForm']");
 			$("#FILE_NO").attr("value", fileNo);
@@ -129,6 +136,7 @@
 						<div>
 							<button type="button" class="update_btn">수정</button>
 							<button type="button" class="delete_btn">삭제</button>
+							<button type="button" class="anwser_btn">답변</button>
 							<button type="button" class="list_btn">목록</button>	
 						</div>
 						

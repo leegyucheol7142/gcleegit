@@ -36,5 +36,12 @@ public interface BoardService {
 	
 	//첨부파일 다운
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	
+	//답변 작성
+	public void setAnswer(BoardBean bb) throws Exception;
+	
+	//스텝 넘버 임의로 올리기
+	public void updateSno(BoardBean prBoard) throws Exception;
 
+	public int rewriteBoard(BoardBean bb, int prBoardNo) throws Exception;
 }

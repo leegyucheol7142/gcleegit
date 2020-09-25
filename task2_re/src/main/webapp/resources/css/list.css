@@ -69,8 +69,6 @@ ul::after{
 #lcontainer {
 		width: 550px;
 		margin: 0 auto;
-		padding: 0 0;
-		text-align: left;
 }
 
 a {text-decoration: none;}	

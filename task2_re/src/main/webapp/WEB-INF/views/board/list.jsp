@@ -14,13 +14,6 @@
 				li {list-style: none; float: left;}
 	</style>
 	<script type="text/javascript">
-		$(function() {
-			$('#cancel').on('click', function(event) {
-				event.preventDefault()
-				location.href = "/task2";
-			});
-		});
-		
 		$(function(){
 	        $('#searchBtn').click(function() {
 	          self.location = "list" + '${pageBean.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());

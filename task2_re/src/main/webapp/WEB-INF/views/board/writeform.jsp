@@ -27,7 +27,7 @@
 					</div>
 			<div class="two">
 				<label for="content">내용</label>
-				<textarea id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+				<textarea id="content" name="content" rows="15" placeholder="내용을 입력하세요"></textarea>
 			</div>
 			<div>
 				<input type="file" name="file">

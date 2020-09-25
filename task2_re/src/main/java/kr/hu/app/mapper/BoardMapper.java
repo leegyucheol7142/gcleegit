@@ -21,6 +21,9 @@ public interface BoardMapper {
 	//게시물 총 갯수
 	public int listCount(SearchBean bb) throws Exception;
 	
+	
+	BoardBean selectBoardByBoardNo(int board_no) throws Exception;
+
 	//게시글  조회
 	public BoardBean read(int board_no) throws Exception;
 	
@@ -41,6 +44,14 @@ public interface BoardMapper {
 	
 	//첨부파일 다운
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	
+	int rewriteBoard(BoardBean bb, int board_no) throws Exception;
+	
+	//답변 작성
+	public void setAnswer(BoardBean bb) throws Exception;
+	
+	//스텝 넘버 임의로 올리기
+	public void updateSno(BoardBean board_no) throws Exception;
 	
 }
 

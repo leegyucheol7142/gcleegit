@@ -16,6 +16,10 @@ CREATE TABLE gc_tbl_board(
     reg DATE DEFAULT(sysdate),
     delyn VARCHAR2(1) DEFAULT('N')
 );
+ALTER TABLE gc_tbl_board
+ADD (
+    parent NUMBER(10)
+);
 
 //댓글 테이블
 CREATE TABLE gc_tbl_comment (

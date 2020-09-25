@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -40,6 +41,21 @@ public class BoardController {
 		@Qualifier("replyService")
 		private ReplyService replyService;
 		
+		@RequestMapping(value = "write", method = RequestMethod.GET)
+		public String BoardWriteForm() {
+
+			return "board/writeform";
+		}
+		
+		@RequestMapping(value = "rewrite", method = RequestMethod.GET)
+		public String rewriteView(@RequestParam("board_no") int board_no, @RequestParam("step_No") int stepNo, HttpSession session) {
+			
+			session.setAttribute("nBoardNo", board_no);
+			session.setAttribute("stepNo", stepNo);
+
+			return "board/rewrite";
+		}
+		
 		@RequestMapping(value = "list", method = RequestMethod.GET)
 		public String list(Model model, @ModelAttribute("sb") SearchBean sb) throws Exception{
 
@@ -51,12 +67,6 @@ public class BoardController {
 			
 			model.addAttribute("pageBean", pb);
 			return "board/list";
-		}
-		
-		@RequestMapping(value = "write", method = RequestMethod.GET)
-		public String BoardWriteForm() {
-
-			return "board/writeform";
 		}
 		
 		@RequestMapping(value = "lookup", method = RequestMethod.GET)
@@ -73,12 +83,12 @@ public class BoardController {
 			return "board/readview";
 		}
 		
-		@RequestMapping(value = "rewrite", method = RequestMethod.GET)
+		@RequestMapping(value = "update", method = RequestMethod.GET)
 		public String update(BoardBean bb, Model model) throws Exception{
 			
 			model.addAttribute("update", boardService.read(bb.getBoard_no()));
 			
-			return "board/rewriteform";
+			return "board/updateform";
 		}
 		
 		@RequestMapping(value = "excelform", method = RequestMethod.GET)
@@ -108,7 +118,20 @@ public class BoardController {
 			
 			return "redirect:/board/list";
 		}
-				
+		
+		@RequestMapping(value= "rewrite", method = RequestMethod.POST)
+		public String rewriteBoard(BoardBean bb,
+				@RequestParam("board_no") int board_no) throws Exception{
+			System.out.println(board_no);
+			System.out.println(bb);
+			if (board_no == 0)
+				return "redirect:/board/list";
+
+			int newboard_no = boardService.rewriteBoard(bb, board_no);
+			System.out.println(newboard_no);
+			return "redirect:/board/list";
+		}
+		
 		@RequestMapping(value = "update", method = RequestMethod.POST)
 		public String update(BoardBean bb) throws Exception{
 			

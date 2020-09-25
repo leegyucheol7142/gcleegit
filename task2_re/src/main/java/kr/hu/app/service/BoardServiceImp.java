@@ -38,6 +38,30 @@ public class BoardServiceImp implements BoardService {
 			}
 	}
 	
+	// 답변 작성
+	@Override
+	public int rewriteBoard(BoardBean bb, int board_no) throws Exception {
+			
+			BoardBean Board = boardMapper.selectBoardByBoardNo(board_no);
+			
+			for (int i = 0; i < bb.getStep_No(); i++) {
+				bb.setTitle("RE : " + bb.getTitle());
+			}
+			
+			bb.setTitle("└" + bb.getTitle());
+			
+			bb.setGroup_No(Board.getGroup_No());
+			bb.setStep_No(Board.getStep_No() + 1);
+			bb.setDepth(Board.getDepth() + 1);
+			
+			boardMapper.updateSno(Board);
+			
+			boardMapper.setAnswer(bb);
+			int newNum = bb.getBoard_no();
+
+			return newNum;
+	}
+	
 	// 게시물 목록 조회
 	@Override
 	public List<BoardBean> listPage(SearchBean sb) throws Exception {
@@ -45,31 +69,32 @@ public class BoardServiceImp implements BoardService {
 			return boardMapper.listPage(sb);
 	}
 	
-	//게시물 총 갯수
+	// 게시물 총 갯수
 	@Override
 	public int listCount(SearchBean sb) throws Exception {
 		
 			return boardMapper.listCount(sb);
 	}
-	//게시글  조회
+	// 게시글  조회
 	@Override
 	public BoardBean read(int board_no) throws Exception {
 		
 			return boardMapper.read(board_no);
 	}
-	//게시글  수정
+	// 게시글  수정
 	@Override
 	public void update(BoardBean bb) throws Exception {
 
 			boardMapper.update(bb);
 	}
-	//게시글 삭제
+	// 게시글 삭제
 	@Override
 	public void delete(int board_no) throws Exception {
 		
 			boardMapper.delete(board_no);
 	}
 	
+	// 엑셀 다운로드
 	@Override
 	public List<BoardBean> excelselect(int board_no) throws Exception {
 		return boardMapper.excelselect(board_no);
@@ -86,4 +111,17 @@ public class BoardServiceImp implements BoardService {
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception {
 		return boardMapper.selectFileInfo(map);
 	}
+
+	@Override
+	public void setAnswer(BoardBean bb) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSno(BoardBean prBoard) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
