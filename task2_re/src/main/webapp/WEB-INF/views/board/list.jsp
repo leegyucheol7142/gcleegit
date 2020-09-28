@@ -46,12 +46,15 @@
 							<c:forEach var="list" items="${list}">
 							<ul>
 								<li class="body">
-									<ul class="accordion">
+									<ul>
 										<li class="no"><c:out value="${list.board_no}" /></li>
-										<li class="detail subject"><a href="lookup?board_no=${list.board_no}"><c:out value="${list.title}" /></a></li>
+										<li class="detail subject" style="text-align:left;padding-left:${list.depth * 20}px;">
+											<a href="lookup?board_no=${list.board_no}&&perPageNum=${sb.perPageNum}&searchType=${ empty sb.searchType ? '' : sb.searchType }&searchKey=${ empty sb.keyword ? '' : sb.keyword }""><c:out value="${list.title}" /></a>
+										</li>
 										<li class="name"><c:out value="${list.user_no}" /></li>
 										<li class="date"><fmt:formatDate value="${list.reg}" pattern="yyyy-MM-dd HH:mm:ss"/></li>
 									</ul>
+								</li>	
 							</ul>
 							</c:forEach>
 						</c:otherwise>
@@ -59,7 +62,6 @@
 			</div>
 			<div class="search">
 			    <select name="searchType">
-			      <option value="n"<c:out value="${sb.searchType == null ? 'selected' : ''}"/>>-----</option>
 			      <option value="t"<c:out value="${sb.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
 			      <option value="c"<c:out value="${sb.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
 			      <option value="w"<c:out value="${sb.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>

@@ -71,11 +71,11 @@
 			var deleteYN = confirm("댓글을 삭제하시겠습니까?");
 			if(deleteYN == true){
 				location.href = "/task2/board/lookup?board_no=${read.board_no}"
-					+ "&page=${sb.page}"
+					/* + "&page=${sb.page}"
 					+ "&perPageNum=${sb.perPageNum}"
 					+ "&searchType=${sb.searchType}"
 					+ "&keyword=${sb.keyword}"
-					+ "&comment_no="+$(this).attr("data-comment_no");
+					+ "&comment_no="+$(this).attr("data-comment_no"); */
 				/* formObj2.attr("action", "replyDelete");
 				formObj2.attr("method", "post");
 				formObj2.submit(); */

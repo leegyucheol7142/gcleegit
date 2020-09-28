@@ -21,9 +21,6 @@ public interface BoardMapper {
 	//게시물 총 갯수
 	public int listCount(SearchBean bb) throws Exception;
 	
-	
-	BoardBean selectBoardByBoardNo(int board_no) throws Exception;
-
 	//게시글  조회
 	public BoardBean read(int board_no) throws Exception;
 	

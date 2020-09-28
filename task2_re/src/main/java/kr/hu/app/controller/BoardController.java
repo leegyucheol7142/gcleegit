@@ -6,7 +6,6 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -50,7 +49,7 @@ public class BoardController {
 		@RequestMapping(value = "rewrite", method = RequestMethod.GET)
 		public String rewriteView(@RequestParam("board_no") int board_no, @RequestParam("step_No") int stepNo, HttpSession session) {
 			
-			session.setAttribute("nBoardNo", board_no);
+			session.setAttribute("board_no", board_no);
 			session.setAttribute("stepNo", stepNo);
 
 			return "board/rewrite";
@@ -119,16 +118,16 @@ public class BoardController {
 			return "redirect:/board/list";
 		}
 		
-		@RequestMapping(value= "rewrite", method = RequestMethod.POST)
-		public String rewriteBoard(BoardBean bb,
-				@RequestParam("board_no") int board_no) throws Exception{
-			System.out.println(board_no);
-			System.out.println(bb);
-			if (board_no == 0)
-				return "redirect:/board/list";
-
-			int newboard_no = boardService.rewriteBoard(bb, board_no);
-			System.out.println(newboard_no);
+		@RequestMapping(value= "rewrite" , method = RequestMethod.POST)
+		public String rewrite(BoardBean bb, @RequestParam("board_no") int board_no, Model model) throws Exception{
+			System.out.println("board : " + board_no);
+			if (board_no == 0) { return "redirect:/board/list"; }
+			//List<BoardBean> rewriteList = boardService.rewriteBoard(bb, board_no);
+			int rewriteList = boardService.rewriteBoard(bb, board_no);
+			
+			model.addAttribute("rewriteBno", board_no);
+			model.addAttribute("rewriteSno", bb.getStep_No());
+		
 			return "redirect:/board/list";
 		}
 		

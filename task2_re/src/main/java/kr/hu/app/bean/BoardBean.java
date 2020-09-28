@@ -13,6 +13,7 @@ public class BoardBean {
 		private int group_No;
 		private int step_No;
 		private int depth;
+		
 		public int getBoard_no() {
 			return board_no;
 		}

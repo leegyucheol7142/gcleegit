@@ -65,7 +65,7 @@ public class BoardServiceImp implements BoardService {
 	// 게시물 목록 조회
 	@Override
 	public List<BoardBean> listPage(SearchBean sb) throws Exception {
-		
+			
 			return boardMapper.listPage(sb);
 	}
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +26,8 @@
                     <div>답변 작성</div>
                     <br>
                     <form id="writeForm" action="rewrite" method="post" enctype="multipart/form-data">
-                    	<input type="hidden" name="board_no" value="${read.board_no}" />
-                    	<input type="hidden" name="step_No" value="${read.step_No }" />
+                    	<input type="hidden" name="board_no" value="${board_no}" />
+                    	<input type="hidden" name="step_No" value="${stepNo}" />
                         <table>
                             <tr>
                                 <th>제목</th>
