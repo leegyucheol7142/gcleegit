@@ -41,7 +41,7 @@ public interface BoardService {
 	public void setAnswer(BoardBean bb) throws Exception;
 	
 	//스텝 넘버 임의로 올리기
-	public void updateSno(BoardBean prBoard) throws Exception;
+	public void updateSno(BoardBean board_no) throws Exception;
 
 	public int rewriteBoard(BoardBean bb, int board_no) throws Exception;
 }

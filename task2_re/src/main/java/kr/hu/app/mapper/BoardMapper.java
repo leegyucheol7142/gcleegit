@@ -15,6 +15,9 @@ public interface BoardMapper {
 	//게시글 작성
 	public void setWrite(BoardBean bb);
 	
+	//게시판 전체 조회
+	List<BoardBean> selectBoards();
+	
 	//게시글 목록 조회
 	public List<BoardBean> listPage(SearchBean sb) throws Exception;
 	

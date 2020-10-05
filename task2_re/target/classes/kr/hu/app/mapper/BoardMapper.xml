@@ -5,53 +5,65 @@
 <mapper namespace="kr.hu.app.mapper.BoardMapper">
 	
 	<!-- 글쓰기 -->
-	<insert id="setWrite" parameterType="kr.hu.app.bean.BoardBean" useGeneratedKeys="true" keyProperty="board_no">
-  		<selectKey keyProperty="board_no" resultType="int" order="BEFORE">
+	<insert id="setWrite" parameterType="kr.hu.app.bean.BoardBean" useGeneratedKeys="true" keyColumn="board_no" keyProperty="boardNo">
+  		<!-- <selectKey keyProperty="board_no" resultType="int" order="BEFORE">
   			SELECT SEQ_BOARD.NEXTVAL FROM DUAL
-  		</selectKey>
+  		</selectKey> -->
 	  	INSERT INTO gc_tbl_board 
-	  		(board_no, title, user_no, content, group_no, step_no, depth) 
+	  		(board_no, title, user_no, content, group_No, step_No, depth) 
 	    VALUES 
-	    	(#{board_no},#{title},#{user_no},#{content}, SEQ_BOARD.currval, 1, 0)
+	    	(SEQ_BOARD.nextval,#{title},#{user_no},#{content}, SEQ_BOARD.currval, 1, 0)
   	</insert>
   	
   	<!-- 답변-->
-  	<insert id="setAnswer" parameterType="kr.hu.app.bean.BoardBean" useGeneratedKeys="true" keyColumn="board_no" keyProperty="boardNo">
+  	<insert id="setAnswer" parameterType="kr.hu.app.bean.BoardBean" useGeneratedKeys="true" keyColumn="board_no" keyProperty="board_no">
   		INSERT INTO
 		gc_tbl_board (
-			board_no, title, user_no, content, group_no, step_no, depth)
+			board_no, title, user_no, content, group_No, step_No, depth)
 		VALUES (
-			SEQ_BOARD.nextval, #{ title }, #{ user_no }, #{ content }, #{ groupNo }, #{ stepNo }, #{ depth }
+			SEQ_BOARD.nextval, #{ title }, #{ user_no }, #{ content }, #{ group_No }, #{ step_No }, #{ depth }
 		)
   	</insert>
   	
   	<update id="updateSno" parameterType="kr.hu.app.bean.BoardBean">
 		<![CDATA[
 		UPDATE gc_tbl_board
-		SET step_no = step_no + 1
-		WHERE group_no = #{ groupNo } AND step_no > #{ stepNo }
+		SET step_No = step_No + 1
+		WHERE group_No = #{ group_No } AND step_No > #{ step_No }
 		]]>
 	</update>
   	
+  	<select id="selectBoards" resultType="kr.hu.app.bean.BoardBean">
+		SELECT *
+		FROM gc_tbl_board
+		ORDER BY board_no DESC
+	</select>
+	
 	<select id="listPage" resultType="kr.hu.app.bean.BoardBean" parameterType="kr.hu.app.bean.Criteria">
 		SELECT  board_no, 
 		        title, 
 		        content,
 		        user_no, 
-		        reg
+		        reg,
+		        group_No,
+                step_No,
+                depth
 		 FROM ( 
 		        SELECT board_no, 
 		               title, 
 		               content, 
 		               user_no, 
 		               reg, 
-		               ROW_NUMBER() OVER(ORDER BY board_no DESC) AS RNUM
+		               ROW_NUMBER() OVER(ORDER BY board_no DESC) AS RNUM,
+		               group_No,
+                       step_No,
+                       depth
 		         FROM gc_tbl_board
 		         where 1 = 1
 		         	<include refid="search"></include>
-		                       ) MP
+		                       )
 		WHERE RNUM between #{rowStart} AND #{rowEnd}
-		ORDER BY board_no DESC
+		ORDER BY group_No DESC, step_No ASC
 	</select>
 	<!--  게시물 총 개수 -->
 	<select id="listCount" resultType="int">

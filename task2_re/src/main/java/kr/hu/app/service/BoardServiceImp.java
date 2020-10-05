@@ -29,7 +29,7 @@ public class BoardServiceImp implements BoardService {
 	// 게시글 작성
 	@Override
 	public void setWrite(BoardBean bb, MultipartHttpServletRequest mpRequest) throws Exception {
-			boardMapper.setWrite(bb);
+		boardMapper.setWrite(bb);
 	
 			List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(bb, mpRequest); 
 			int size = list.size();
@@ -42,7 +42,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int rewriteBoard(BoardBean bb, int board_no) throws Exception {
 			
-			BoardBean Board = boardMapper.selectBoardByBoardNo(board_no);
+			BoardBean Board = boardMapper.read(board_no);
 			
 			for (int i = 0; i < bb.getStep_No(); i++) {
 				bb.setTitle("RE : " + bb.getTitle());
@@ -50,7 +50,7 @@ public class BoardServiceImp implements BoardService {
 			
 			bb.setTitle("└" + bb.getTitle());
 			
-			bb.setGroup_No(Board.getGroup_No());
+			bb.setGroup_No(Board.getBoard_no());
 			bb.setStep_No(Board.getStep_No() + 1);
 			bb.setDepth(Board.getDepth() + 1);
 			
@@ -119,9 +119,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void updateSno(BoardBean prBoard) throws Exception {
+	public void updateSno(BoardBean board_no) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
